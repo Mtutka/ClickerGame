@@ -98,7 +98,7 @@ monster.addEventListener('click', function () {
     health -= damage;
     if (health <= 0) {
         money += (5 + monsterCount * 1.5) * lvl;
-        basichealth *= 1.11;
+        basichealth *= 1.31;
         health = basichealth;
         monsterCount++;
         exp += monsterCount;
@@ -151,7 +151,7 @@ function dealDps() {
     health -= dps;
     if (health <= 0) {
         money += (5 + monsterCount * 1.5) * lvl;
-        basichealth *= 1.11;
+        basichealth *= 1.31;
         health = basichealth;
         monsterCount++;
         exp += monsterCount;
