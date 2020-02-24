@@ -12,6 +12,7 @@ let DpsCost = 20;
 let monsterCount = 0;
 let basicDps = 0;
 let dps = basicDps * ((lvl + 1) / 2);
+let crit = 10;
 
 const monster = document.querySelector('.monster');
 const DmgUp = document.querySelector('button');
@@ -25,6 +26,7 @@ const showHealth = document.querySelector('.health');
 const showDps = document.querySelector('.dps');
 const showMonsterCount = document.querySelector('.count');
 const showExp = document.querySelector('.exp');
+const critical = document.querySelector('.crit');
 
 
 //RUN DEFAULT VARIABLES
@@ -37,6 +39,7 @@ const runDefault = () => {
     showExp.textContent = `LVL:${lvl} exp:${exp}/${expNeeded}`;
     showDpsCost.textContent = `DPS Cost:${DpsCost}`;
     showMonsterCount.textContent = `Killed Monsters:${monsterCount}`;
+    critical.textContent = `Critical strike chance:${crit}%`;
 }
 runDefault();
 
@@ -45,6 +48,7 @@ runDefault();
 const lvlCount = function () {
     if (exp >= expNeeded) {
         lvl++;
+        crit++;
         exp = 0;
         expNeeded *= expNeeded / 50;
         showExp.textContent = `LVL:${lvl} exp:${exp}/${expNeeded}`;
@@ -52,7 +56,7 @@ const lvlCount = function () {
         dps = basicDps * ((lvl + 1) / 2);
 
         dps = Number(dps.toFixed());
-        showDps.textContent = `DPS:${dps}`;
+        runDefault();
 
     }
 }
@@ -76,6 +80,11 @@ const monsterSwitch = () => {
 //CLICK DAMAGE
 const clickDamage = () => {
     health -= damage;
+    const strike = Math.floor(Math.random() * 100);
+    console.log(strike);
+    if (strike <= crit - 1) {
+        health -= damage * 4;
+    }
     if (health <= 0) {
         money += (5 + monsterCount * 1.5) * lvl;
         basichealth *= 1.31;
@@ -91,12 +100,10 @@ const clickDamage = () => {
         expNeeded = Number(expNeeded.toFixed());
 
         lvlCount();
-        monsterSwitch()
-        runDefault();;
+        monsterSwitch();
+        runDefault();
     }
 }
-
-
 monster.addEventListener('click', clickDamage);
 window.addEventListener('keydown', (e) => {
     const key = e.code;
@@ -104,8 +111,6 @@ window.addEventListener('keydown', (e) => {
         clickDamage();
     }
 });
-
-
 
 DmgUp.addEventListener('click', function () {
     if (DamageCost <= money) {
