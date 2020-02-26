@@ -156,9 +156,9 @@ const dpsInterval = window.setInterval(dealDps, 1000);
 DpsUp.addEventListener('click', function () {
     if (DpsCost <= money) {
         money -= DpsCost;
-        basicDps += 1 + basicDps / 1.2;
+        basicDps += 1 + basicDps;
         DpsCost += DpsCost / 2;
-        dps = basicDps * ((lvl + 1) / 2);
+        dps = basicDps * ((lvl + 1) / 1.2);
 
 
         basichealth = Number(basichealth.toFixed());
