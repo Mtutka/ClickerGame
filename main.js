@@ -158,7 +158,7 @@ DpsUp.addEventListener('click', function () {
         money -= DpsCost;
         basicDps += 1 + basicDps;
         DpsCost += DpsCost / 2;
-        dps = basicDps * ((lvl + 1) / 1.2);
+        dps = basicDps * ((lvl + 1) / 1.2));
 
 
         basichealth = Number(basichealth.toFixed());
