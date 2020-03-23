@@ -177,34 +177,11 @@ DpsUp.addEventListener("click", function() {
 
   runDefault();
   showHealth.textContent = `Health:${health}`;
-});
-=======
-DpsUp.addEventListener('click', function () {
-    if (DpsCost <= money) {
-        money -= DpsCost;
-        basicDps += 1 + basicDps;
-        DpsCost += DpsCost / 2;
-        dps = basicDps * ((lvl + 1) / 1.2));
-
-
-        basichealth = Number(basichealth.toFixed());
-        health = Number(health.toFixed());
-        money = Number(money.toFixed());
-        damage = Number(damage.toFixed());
-        DamageCost = Number(DamageCost.toFixed());
-        DpsCost = Number(DpsCost.toFixed());
-        basicDps = Number(dps.toFixed());
-        dps = Number(dps.toFixed());
-    }
-
-    runDefault();
 })
 
 
 
 
-
->>>>>>> 0eae00d237e5d7c6bb752bc20e07fcae4f7697aa
 
 //BOSS
 //DO OGARNIĘCIA
