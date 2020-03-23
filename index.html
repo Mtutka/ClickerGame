@@ -1,61 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        body {
-            background-color: black;
-            color: wheat;
-            font-style: arial;
-            font-size: 12px;
-        }
+      body {
+        background-color: black;
+        color: wheat;
+        font-style: arial;
+        font-size: 12px;
+      }
 
-        h1:active,
-        h2:active {
-            background-color: black;
-            color: wheat;
-        }
+      h1:active,
+      h2:active {
+        background-color: black;
+        color: wheat;
+      }
 
+      div {
+        width: 100px;
+        height: 100px;
+        position: fixed;
+        top: calc(50% - 50px);
+        left: calc(50% - 50px);
+        background-color: blueviolet;
+      }
 
-        div {
-            width: 100px;
-            height: 100px;
-            position: fixed;
-            top: calc(50% - 50px);
-            left: calc(50% - 50px);
-            background-color: blueviolet;
-        }
+      .red {
+        background-color: brown;
+      }
 
-        .red {
-            background-color: brown;
-        }
+      .color {
+        background-color: orange;
+      }
 
-        .color {
-            background-color: orange;
-        }
+      h1.showCrit {
+        position: fixed;
+        display: none;
+        top: 20%;
+        left: 40%;
+        font-size: 40px;
+        color: brown;
+      }
+
+      h1.show {
+        display: block;
+      }
     </style>
-</head>
-<h1>Click on Monster or press Space to deal damage</h1>
-<h1 class="money"></h1>
-<h1 class="exp"></h1>
-<h1 class="count"></h1>
-<h1 class="damage"></h1>
-<button> + Damage </button>
-<h2 class="DmgCost"></h2>
-<h1 class="dps"></h1>
-<button class="dpsButton"> + DPS </button>
-<h2 class="DpsCost"></h2>
-<h2 class="crit"></h2>
-<h2 class="health"></h2>
+  </head>
+  <h1>Click on Monster or press Space to deal damage</h1>
+  <h1 class="money"></h1>
+  <h1 class="exp"></h1>
+  <h1 class="count"></h1>
+  <h1 class="damage"></h1>
+  <button>+ Damage</button>
+  <h2 class="DmgCost"></h2>
+  <h1 class="dps"></h1>
+  <button class="dpsButton">+ DPS</button>
+  <h2 class="DpsCost"></h2>
+  <h2 class="crit"></h2>
+  <h2 class="health"></h2>
+  <h1 class="showCrit">Critical Strike</h1>
 
+  <div class="monster color"></div>
 
-<div class="monster color"></div>
-
-<body>
+  <body>
     <script src="main.js"></script>
-</body>
-
+  </body>
 </html>

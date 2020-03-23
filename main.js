@@ -2,7 +2,7 @@
 
 let lvl = 1;
 let exp = 0;
-let expNeeded = 100;
+let expNeeded = 70;
 let basichealth = 10;
 let health = 10;
 let money = 0;
@@ -14,145 +14,171 @@ let basicDps = 0;
 let dps = basicDps * ((lvl + 1) / 2);
 let crit = 10;
 
-const monster = document.querySelector('.monster');
-const DmgUp = document.querySelector('button');
-const DpsUp = document.querySelector('.dpsButton');
+const monster = document.querySelector(".monster");
+const DmgUp = document.querySelector("button");
+const DpsUp = document.querySelector(".dpsButton");
 
-const showMoney = document.querySelector('.money');
-const showDamage = document.querySelector('.damage');
-const showCost = document.querySelector('.DmgCost');
-const showDpsCost = document.querySelector('.DpsCost');
-const showHealth = document.querySelector('.health');
-const showDps = document.querySelector('.dps');
-const showMonsterCount = document.querySelector('.count');
-const showExp = document.querySelector('.exp');
-const critical = document.querySelector('.crit');
-
+const showMoney = document.querySelector(".money");
+const showDamage = document.querySelector(".damage");
+const showCost = document.querySelector(".DmgCost");
+const showDpsCost = document.querySelector(".DpsCost");
+const showHealth = document.querySelector(".health");
+const showDps = document.querySelector(".dps");
+const showMonsterCount = document.querySelector(".count");
+const showExp = document.querySelector(".exp");
+const critical = document.querySelector(".crit");
 
 //RUN DEFAULT VARIABLES
 const runDefault = () => {
-    showDamage.textContent = `Damage:${damage}`;
-    showMoney.textContent = `Money:${money}`;
-    showCost.textContent = `Damage Cost:${DamageCost}`;
-    showHealth.textContent = `Health:${health}`;
-    showDps.textContent = `DPS:${dps}`;
-    showExp.textContent = `LVL:${lvl} exp:${exp}/${expNeeded}`;
-    showDpsCost.textContent = `DPS Cost:${DpsCost}`;
-    showMonsterCount.textContent = `Killed Monsters:${monsterCount}`;
-    critical.textContent = `Critical strike chance:${crit}%`;
-}
+  showDamage.textContent = `Damage:${damage}`;
+  showMoney.textContent = `Money:${money}`;
+  showCost.textContent = `Damage Cost:${DamageCost}`;
+  showDps.textContent = `DPS:${dps}`;
+  showExp.textContent = `LVL:${lvl} exp:${exp}/${expNeeded}`;
+  showDpsCost.textContent = `DPS Cost:${DpsCost}`;
+  showMonsterCount.textContent = `Killed Monsters:${monsterCount}`;
+  critical.textContent = `Critical strike chance:${crit}%`;
+};
 runDefault();
 
-
 //EXP
-const lvlCount = function () {
-    if (exp >= expNeeded) {
-        lvl++;
-        crit++;
-        exp = 0;
-        expNeeded *= expNeeded / 50;
-        showExp.textContent = `LVL:${lvl} exp:${exp}/${expNeeded}`;
-        expNeeded = Number(expNeeded.toFixed());
-        dps = basicDps * ((lvl + 1) / 2);
+const lvlCount = function() {
+  if (exp >= expNeeded) {
+    lvl++;
+    crit++;
+    exp = 0;
+    expNeeded *= expNeeded / 50;
+    showExp.textContent = `LVL:${lvl} exp:${exp}/${expNeeded}`;
+    expNeeded = Number(expNeeded.toFixed());
+    dps = basicDps * ((lvl + 1) / 2);
 
-        dps = Number(dps.toFixed());
-        runDefault();
-
-    }
-}
+    dps = Number(dps.toFixed());
+    runDefault();
+    showHealth.textContent = `Health:${health}`;
+  }
+};
 
 //MONSTER COLOR
 
 const monsterSwitch = () => {
-    if (monsterCount % 10 == 0) {
-        monster.classList.add('red')
-    } else if (monsterCount % 2 == 0) {
-        monster.classList.add('color')
-        monster.classList.remove('red')
-
-    } else {
-        monster.classList.remove('color')
-        monster.classList.remove('red')
-
-    }
-}
+  if (monsterCount % 10 == 0) {
+    monster.classList.add("red");
+  } else if (monsterCount % 2 == 0) {
+    monster.classList.add("color");
+    monster.classList.remove("red");
+  } else {
+    monster.classList.remove("color");
+    monster.classList.remove("red");
+  }
+};
 
 //CLICK DAMAGE
+
+const hide = () => {
+  document.querySelector(".showCrit").classList.remove("show");
+}; 
 const clickDamage = () => {
-    health -= damage;
-    const strike = Math.floor(Math.random() * 100);
-    console.log(strike);
-    if (strike <= crit - 1) {
-        health -= damage * 4;
-    }
-    if (health <= 0) {
-        money += (5 + monsterCount * 1.5) * lvl;
-        basichealth *= 1.31;
-        health = basichealth;
-        monsterCount++;
-        exp += monsterCount;
+  health -= damage;
 
-        basichealth = Number(basichealth.toFixed());
-        health = Number(health.toFixed());
-        damage = Number(damage.toFixed());
-        money = Number(money.toFixed());
-        exp = Number(exp.toFixed());
-        expNeeded = Number(expNeeded.toFixed());
+  //critical strike handle
+  const strike = Math.floor(Math.random() * 100);
+  console.log(strike);
+  if (strike <= crit - 1) {
+    document.querySelector(".showCrit").classList.add("show");
+    setTimeout(hide, 300);
+    health -= damage * 4;
+  }
 
-        lvlCount();
-        monsterSwitch();
-        runDefault();
-    }
-}
-monster.addEventListener('click', clickDamage);
-window.addEventListener('keydown', (e) => {
-    const key = e.code;
-    if (key == 'Space') {
-        clickDamage();
-    }
+  if (health <= 0) {
+    money += (5 + monsterCount * 1.5) * lvl;
+    basichealth *= 1.31;
+    health = basichealth;
+    monsterCount++;
+    exp += monsterCount;
+
+    basichealth = Number(basichealth.toFixed());
+    health = Number(health.toFixed());
+    damage = Number(damage.toFixed());
+    money = Number(money.toFixed());
+    exp = Number(exp.toFixed());
+    expNeeded = Number(expNeeded.toFixed());
+
+    lvlCount();
+    monsterSwitch();
+    runDefault();
+    showHealth.textContent = `Health:${health}`;
+  }
+};
+monster.addEventListener("click", clickDamage);
+window.addEventListener("keydown", e => {
+  const key = e.code;
+  if (key == "Space") {
+    clickDamage();
+  }
 });
 
-DmgUp.addEventListener('click', function () {
-    if (DamageCost <= money) {
-        money -= DamageCost;
-        damage += damage - damage / 3;
-        DamageCost += DamageCost / 2;
+DmgUp.addEventListener("click", function() {
+  if (DamageCost <= money) {
+    money -= DamageCost;
+    damage += damage - damage / 3;
+    DamageCost += DamageCost / 2;
 
-        money = Number(money.toFixed());
-        damage = Number(damage.toFixed());
-        DamageCost = Number(DamageCost.toFixed());
-
-    }
-    runDefault();
-})
-
+    money = Number(money.toFixed());
+    damage = Number(damage.toFixed());
+    DamageCost = Number(DamageCost.toFixed());
+  }
+  runDefault();
+  showHealth.textContent = `Health:${health}`;
+});
 
 //DPS DAMAGE
 
 const dealDps = () => {
+  health -= dps;
+  if (health <= 0) {
+    money += (5 + monsterCount * 1.5) * lvl;
+    basichealth *= 1.31;
+    health = basichealth;
+    monsterCount++;
+    exp += monsterCount;
 
-    health -= dps;
-    if (health <= 0) {
-        money += (5 + monsterCount * 1.5) * lvl;
-        basichealth *= 1.31;
-        health = basichealth;
-        monsterCount++;
-        exp += monsterCount;
+    basichealth = Number(basichealth.toFixed());
+    health = Number(health.toFixed());
+    dps = Number(dps.toFixed());
+    money = Number(money.toFixed());
+    exp = Number(exp.toFixed());
+    expNeeded = Number(expNeeded.toFixed());
+  }
 
-        basichealth = Number(basichealth.toFixed());
-        health = Number(health.toFixed());
-        dps = Number(dps.toFixed());
-        money = Number(money.toFixed());
-        exp = Number(exp.toFixed());
-        expNeeded = Number(expNeeded.toFixed());
-    }
-
-    lvlCount();
-    monsterSwitch()
-    runDefault();
-}
+  lvlCount();
+  monsterSwitch();
+  runDefault();
+  showHealth.textContent = `Health:${health}`;
+};
 const dpsInterval = window.setInterval(dealDps, 1000);
 
+<<<<<<< HEAD
+DpsUp.addEventListener("click", function() {
+  if (DpsCost <= money) {
+    money -= DpsCost;
+    basicDps += 1 + basicDps / 1.2;
+    DpsCost += DpsCost / 2;
+    dps = basicDps * ((lvl + 1) / 2);
+
+    basichealth = Number(basichealth.toFixed());
+    health = Number(health.toFixed());
+    money = Number(money.toFixed());
+    damage = Number(damage.toFixed());
+    DamageCost = Number(DamageCost.toFixed());
+    DpsCost = Number(DpsCost.toFixed());
+    basicDps = Number(dps.toFixed());
+    dps = Number(dps.toFixed());
+  }
+
+  runDefault();
+  showHealth.textContent = `Health:${health}`;
+});
+=======
 DpsUp.addEventListener('click', function () {
     if (DpsCost <= money) {
         money -= DpsCost;
@@ -178,6 +204,7 @@ DpsUp.addEventListener('click', function () {
 
 
 
+>>>>>>> 0eae00d237e5d7c6bb752bc20e07fcae4f7697aa
 
 //BOSS
 //DO OGARNIĘCIA
