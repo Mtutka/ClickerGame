@@ -157,7 +157,7 @@ const dealDps = () => {
 };
 const dpsInterval = window.setInterval(dealDps, 1000);
 
-<<<<<<< HEAD
+
 DpsUp.addEventListener("click", function() {
   if (DpsCost <= money) {
     money -= DpsCost;
